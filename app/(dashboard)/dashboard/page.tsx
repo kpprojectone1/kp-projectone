@@ -1,7 +1,24 @@
+import { FileText, Clock, CheckCircle } from 'lucide-react';
+
 const stats = [
-  { title: 'Total Complaints', value: 124, color: 'text-blue-600' },
-  { title: 'Pending Cases', value: 37, color: 'text-yellow-500' },
-  { title: 'Resolved Cases', value: 87, color: 'text-green-600' },
+  {
+    title: 'Total Complaints',
+    value: 124,
+    color: 'text-blue-600',
+    icon: FileText,
+  },
+  {
+    title: 'Pending Cases',
+    value: 37,
+    color: 'text-yellow-500',
+    icon: Clock,
+  },
+  {
+    title: 'Resolved Cases',
+    value: 87,
+    color: 'text-green-600',
+    icon: CheckCircle,
+  },
 ];
 
 export default function DashboardPage() {
@@ -17,12 +34,19 @@ export default function DashboardPage() {
               key={index}
               className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition"
             >
-              <h2 className="text-gray-600 text-sm font-medium uppercase tracking-wide">
-                {stat.title}
-              </h2>
-              <p className={`mt-2 text-3xl font-bold ${stat.color}`}>
-                {stat.value}
-              </p>
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-gray-100 rounded-full">
+                  <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                </div>
+                <div>
+                  <h2 className="text-gray-600 text-sm font-medium uppercase tracking-wide">
+                    {stat.title}
+                  </h2>
+                  <p className={`mt-1 text-2xl font-bold ${stat.color}`}>
+                    {stat.value}
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
