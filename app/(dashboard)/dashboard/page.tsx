@@ -21,6 +21,30 @@ const stats = [
   },
 ];
 
+const complaints = [
+  {
+    id: 1,
+    complainant: 'Juan Dela Cruz',
+    offender: 'Pedro Santos',
+    status: 'Pending',
+    dateFiled: '2025-04-01',
+  },
+  {
+    id: 2,
+    complainant: 'Maria Reyes',
+    offender: 'Juan Dela Cruz',
+    status: 'Resolved',
+    dateFiled: '2025-03-28',
+  },
+  {
+    id: 3,
+    complainant: 'Ana Garcia',
+    offender: 'Jose Torres',
+    status: 'Pending',
+    dateFiled: '2025-04-02',
+  },
+];
+
 export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -50,6 +74,35 @@ export default function DashboardPage() {
             </div>
           ))}
         </div>
+
+        {/* Recent Complaints Table */}
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white shadow-md rounded-lg">
+            <thead>
+              <tr className="border-b">
+                <th className="py-3 px-4 text-left text-gray-600 font-medium">Complainant</th>
+                <th className="py-3 px-4 text-left text-gray-600 font-medium">Offender</th>
+                <th className="py-3 px-4 text-left text-gray-600 font-medium">Status</th>
+                <th className="py-3 px-4 text-left text-gray-600 font-medium">Date Filed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {complaints.map((complaint) => (
+                <tr key={complaint.id} className="border-b hover:bg-gray-100">
+                  <td className="py-3 px-4 text-gray-700">{complaint.complainant}</td>
+                  <td className="py-3 px-4 text-gray-700">{complaint.offender}</td>
+                  <td className={`py-3 px-4 text-center ${
+                    complaint.status === 'Pending' ? 'text-yellow-500' : 'text-green-600'
+                  } font-semibold`}>
+                    {complaint.status}
+                  </td>
+                  <td className="py-3 px-4 text-gray-700">{complaint.dateFiled}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
   );
