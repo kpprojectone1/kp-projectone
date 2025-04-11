@@ -144,7 +144,7 @@ export default function DashboardPage() {
                 <tr key={complaint.id} className="border-b hover:bg-gray-100">
                   <td className="py-3 px-4 text-gray-700">{complaint.complainant}</td>
                   <td className="py-3 px-4 text-gray-700">{complaint.offender}</td>
-                  <td className={`py-3 px-4 text-center ${
+                  <td className={`py-3 px-4 ${
                     complaint.status === 'Pending' ? 'text-yellow-500' : 'text-green-600'
                   } font-semibold`}>
                     {complaint.status}
