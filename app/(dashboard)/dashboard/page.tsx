@@ -1,3 +1,5 @@
+"use client";
+
 import { FileText, Clock, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 const stats = [
