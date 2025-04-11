@@ -1,5 +1,5 @@
 import { FileText, Clock, CheckCircle } from 'lucide-react';
-
+import { useState } from 'react';
 const stats = [
   {
     title: 'Total Complaints',
@@ -46,6 +46,23 @@ const complaints = [
 ];
 
 export default function DashboardPage() {
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [dateFilter, setDateFilter] = useState('All');
+
+  const filteredComplaints = complaints.filter((complaint) => {
+    let statusMatch = true;
+    let dateMatch = true;
+
+    if (statusFilter !== 'All') {
+      statusMatch = complaint.status === statusFilter;
+    }
+
+    if (dateFilter !== 'All') {
+      dateMatch = complaint.dateFiled.startsWith(dateFilter);
+    }
+
+    return statusMatch && dateMatch;
+  });
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-6xl mx-auto">
@@ -75,9 +92,42 @@ export default function DashboardPage() {
           ))}
         </div>
 
+        {/* Filters */}
+        <div className="mb-6 flex gap-4">
+          <div>
+            <label htmlFor="status" className="block text-gray-600">Filter by Status</label>
+            <select
+              id="status"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="mt-2 p-2 border border-gray-300 rounded-md"
+            >
+              <option value="All">All</option>
+              <option value="Pending">Pending</option>
+              <option value="Resolved">Resolved</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="date" className="block text-gray-600">Filter by Date</label>
+            <select
+              id="date"
+              value={dateFilter}
+              onChange={(e) => setDateFilter(e.target.value)}
+              className="mt-2 p-2 border border-gray-300 rounded-md"
+            >
+              <option value="All">All</option>
+              <option value="2025-04">April 2025</option>
+              <option value="2025-03">March 2025</option>
+            </select>
+          </div>
+        </div>
+
+          {/* Section Title */}
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">Recent Complaints</h2>
+
         {/* Recent Complaints Table */}
         <div className="overflow-x-auto">
-        <h3 className="text-3xl font-bold text-gray-800 mb-4">Recent Complaints</h3>
           <table className="min-w-full bg-white shadow-md rounded-lg">
             <thead>
               <tr className="border-b">
@@ -88,11 +138,11 @@ export default function DashboardPage() {
               </tr>
             </thead>
             <tbody>
-              {complaints.map((complaint) => (
+              {filteredComplaints.map((complaint) => (
                 <tr key={complaint.id} className="border-b hover:bg-gray-100">
                   <td className="py-3 px-4 text-gray-700">{complaint.complainant}</td>
                   <td className="py-3 px-4 text-gray-700">{complaint.offender}</td>
-                  <td className={`py-3 px-4 ${
+                  <td className={`py-3 px-4 text-center ${
                     complaint.status === 'Pending' ? 'text-yellow-500' : 'text-green-600'
                   } font-semibold`}>
                     {complaint.status}
