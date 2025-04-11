@@ -77,6 +77,7 @@ export default function DashboardPage() {
 
         {/* Recent Complaints Table */}
         <div className="overflow-x-auto">
+        <h3 className="text-3xl font-bold text-gray-800 mb-4">Recent Complaints</h3>
           <table className="min-w-full bg-white shadow-md rounded-lg">
             <thead>
               <tr className="border-b">
